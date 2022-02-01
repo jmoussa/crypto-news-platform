@@ -1,0 +1,36 @@
+syntax = "proto3";
+package pb;
+option go_package = "github.com/jmoussa/crypto-dashboard/coindeskmicro/pb";
+
+service CoinDeskScraper {
+    rpc GetCoinDeskData(GetCoinDeskDataRequest) returns (GetCoinDeskDataResponse) {}
+}
+
+message GetCoinDeskDataRequest {
+    string start_date = 1;
+    string end_date = 2;
+    int64 max_entries = 3;
+}
+
+message GetCoinDeskDataResponse {
+    repeated Content content = 1;
+}
+
+message Content {
+    string type = 1;
+    string title = 2;
+    string text = 3;
+    string url = 4;
+    repeated Image images = 5;
+    repeated Video videos = 6;
+}
+
+message Image {
+    string url = 1;
+    string caption = 2;
+}
+
+message Video {
+    string url = 1;
+    string caption = 2;
+}

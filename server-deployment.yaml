@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coindesk-server-deployment
+  labels:
+    app: coindesk-server
+spec:
+  selector:
+    matchLabels:
+      app: coindesk-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: coindesk-server
+    spec:
+      containers:
+        - name: coindesk-server
+          image: coindesk-server
+          ports:
+            - name: coindesk-server
+              containerPort: 9000
+          imagePullPolicy: Never 
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coindesk-server
+spec:
+  selector:
+    app: coindesk-server
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+  type: ClusterIP
