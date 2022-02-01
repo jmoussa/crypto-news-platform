@@ -39,6 +39,5 @@ localhost:3000/coindesk (test coindesk REST API + gRPC endpoint)
 
 Top level REST API which connects to gRPC Servers that will perform the content gathering jobs and pipe the input back.
 
-
 ## CI/CD
-Using Kubernetes and Helm for management and monitoring, (minikube for local development)
+Using Kubernetes and Helm for environment management and monitoring, and minikube for local development.
