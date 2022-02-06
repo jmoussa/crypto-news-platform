@@ -16,7 +16,7 @@ cp $(pwd)/config/config.json.template $(pwd)/config/config.json # fill in the co
 export CONFIG_LOCATION=$(pwd)/config
 go get .
 make build
-make deploy # will start minikube dashboard to visualize the deployment 
+make deploy # will open minikube dashboard in browser to visualize the deployment 
 
 # in a separate terminal window
 minikube tunnel # expose API port to your local machine
