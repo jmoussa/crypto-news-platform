@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/jmoussa/crypto-dashboard/docs"
@@ -40,12 +41,19 @@ func startAPI() {
 		}
 		c.JSON(200, content)
 	})
-	router.GET("/twitter", func(c *gin.Context) {
+	router.POST("/twitter", func(c *gin.Context) {
 		// microservice client handles request via gRPC
-		content, err := twitter_client.FetchTwitterData()
+		max_entries := c.PostForm("max_entries")
+		max_entries_int, err := strconv.ParseInt(max_entries, 0, 64)
+		if err != nil {
+			log.Printf("Error when parsing max_entries: %s\nUsing default value of 100", err)
+			max_entries_int = 100
+		}
+		content, err := twitter_client.FetchTwitterData(max_entries_int)
 		if err != nil {
 			c.JSON(500, gin.H{
-				"error": err.Error(),
+				"message": "Could not fetch data from Twitter API",
+				"error":   err.Error(),
 			})
 			return
 		}

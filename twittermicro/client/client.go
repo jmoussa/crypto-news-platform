@@ -10,7 +10,7 @@ import (
 )
 
 // Function that is called by the backend API to get the data from the CoinDesk Microservice API via gRPC.
-func FetchTwitterData() ([]*pb.Tweet, error) {
+func FetchTwitterData(total int64) ([]*pb.Tweet, error) {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial("dns:///be-srv-lb.default.svc.cluster.local", grpc.WithInsecure(), grpc.WithBalancerName(roundrobin.Name))
 	if err != nil {
@@ -20,7 +20,7 @@ func FetchTwitterData() ([]*pb.Tweet, error) {
 	defer conn.Close()
 
 	c := pb.NewTwitterScraperClient(conn)
-	res, err := c.GetTwitterData(context.Background(), &pb.GetTwitterDataRequest{MaxEntries: 10})
+	res, err := c.GetTwitterData(context.Background(), &pb.GetTwitterDataRequest{MaxEntries: total})
 	if err != nil {
 		log.Fatalf("Error when calling GetCoinDeskData: %s", err)
 		return nil, err
