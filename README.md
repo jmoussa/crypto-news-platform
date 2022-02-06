@@ -12,21 +12,25 @@ eval $(minikube docker-env)
 
 git clone github.com/jmoussa/crypto-dashboard
 cd crypto-dashboard
-cp $(pwd)/config/config.json.template $(pwd)/config/config.json
+cp $(pwd)/config/config.json.template $(pwd)/config/config.json # fill in the correct values
 export CONFIG_LOCATION=$(pwd)/config
 go get .
 make build
-make deploy
+make deploy # will start minikube dashboard to visualize the deployment 
+
+# in a separate terminal window
 minikube tunnel # expose API port to your local machine
+
 # Additional Commands
-# clean up kubernetes deployment
+# clean up go cache, docker, and kubernetes deployment
 make clean
 
 # open minikube dashboard for monitoring
 minikube dashboard
 
 # test endpoint in browser
-localhost:3000/coindesk (test coindesk REST API + gRPC endpoint)
+localhost:3000/coindesk (test coindesk REST API + CoinDesk Article Scraping gRPC endpoint)
+localhost:3000/twitter (test coindesk REST API + Twitter Scraping gRPC endpoint)
 ```
 
 ## Architecture
