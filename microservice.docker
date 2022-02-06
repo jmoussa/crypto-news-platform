@@ -1,0 +1,10 @@
+FROM golang:1.18beta2
+COPY . /go/src/
+WORKDIR /go/src/
+
+ARG MAIN_ARG
+RUN go clean -modcache
+RUN go mod tidy 
+ENV CONFIG_LOCATION=/go/src/config
+EXPOSE 9000
+CMD ["go", "run", "main.go", "-server", "${MAIN_ARG}"]

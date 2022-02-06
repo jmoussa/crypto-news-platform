@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coindesk-server-deployment
+  name: coindesk-deployment
   labels:
-    app: coindesk-server
+    app: coindesk
 spec:
   selector:
     matchLabels:
-      app: coindesk-server
+      app: coindesk
   replicas: 1
   template:
     metadata:
       labels:
-        app: coindesk-server
+        app: coindesk
     spec:
       containers:
-        - name: coindesk-server
-          image: coindesk-server
+        - name: coindesk
+          image: coindesk
           ports:
-            - name: coindesk-server
+            - name: coindesk
               containerPort: 9000
           imagePullPolicy: Never 
 
@@ -27,10 +27,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: coindesk-server
+  name: coindesk
 spec:
   selector:
-    app: coindesk-server
+    app: coindesk
   ports:
     - name: http
       port: 9000

@@ -1,0 +1,9 @@
+{
+  "general": {
+    "consumerkey": "",
+    "consumersecret": "",
+    "bearer_token": "",
+    "accesstoken": "",
+    "accesssecret": ""
+  }
+}

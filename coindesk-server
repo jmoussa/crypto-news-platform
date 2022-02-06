@@ -1,6 +1,0 @@
-FROM golang
-COPY . /go/src/
-WORKDIR /go/src/
-RUN go get .
-ENTRYPOINT go run main.go -server
-EXPOSE 9000

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitterscraper-deployment
+  labels:
+    app: twitterscraper
+spec:
+  selector:
+    matchLabels:
+      app: twitterscraper
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: twitterscraper
+    spec:
+      containers:
+        - name: twitterscraper
+          image: twitterscraper
+          ports:
+            - name: twitterscraper
+              containerPort: 9001
+          imagePullPolicy: Never 
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twitterscraper
+spec:
+  selector:
+    app: twitterscraper
+  ports:
+    - name: http
+      port: 9001
+      targetPort: 9001
+  type: ClusterIP

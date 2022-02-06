@@ -1,0 +1,29 @@
+syntax = "proto3";
+package pb;
+option go_package = "github.com/jmoussa/crypto-dashboard/twittermicro/twitter_pb";
+
+service TwitterScraper {
+    rpc GetTwitterData(GetTwitterDataRequest) returns (GetTwitterDataResponse) {}
+}
+
+message GetTwitterDataRequest {
+    string start_date = 1;
+    string end_date = 2;
+    int64 max_entries = 3;
+    string search_phrase = 4;
+}
+
+message GetTwitterDataResponse {
+    repeated Tweet tweets = 1;
+}
+
+message Tweet {
+    string tweet_id = 1;
+    string type = 2;
+    string title = 3;
+    string text = 4;
+    string url = 5;
+    string date = 6;
+    string author = 7;
+    string author_url = 8;
+}

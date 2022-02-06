@@ -7,8 +7,13 @@
 - Minikube (running/started)
 
 ```bash
+# set this at the beginning of your terminal session to reference the local docker images
+eval $(minikube docker-env)
+
 git clone github.com/jmoussa/crypto-dashboard
 cd crypto-dashboard
+cp $(pwd)/config/config.json.template $(pwd)/config/config.json
+export CONFIG_LOCATION=$(pwd)/config
 go get .
 make build
 make deploy
